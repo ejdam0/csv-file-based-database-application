@@ -18,7 +18,7 @@ public class DataToTheListAdderImpl implements DataToTheListAdder {
 
 	static final Logger logger = LoggerFactory.getLogger(DataToTheListAdderImpl.class);
 
-	Validator csvRecordValidator;
+	private Validator csvRecordValidator;
 
 	@Autowired
 	public DataToTheListAdderImpl(Validator csvRecordValidator) {

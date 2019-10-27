@@ -18,8 +18,8 @@ public class SaveToDatabaseServiceImpl implements SaveToDatabaseService {
 
 	static final Logger logger = LoggerFactory.getLogger(SaveToDatabaseServiceImpl.class);
 
-	UserRepository userRepo;
-	CsvFileReaderService csvFileReaderService;
+	private UserRepository userRepo;
+	private CsvFileReaderService csvFileReaderService;
 
 	@Autowired
 	public SaveToDatabaseServiceImpl(UserRepository userRepo, CsvFileReaderService csvFileReaderService) {

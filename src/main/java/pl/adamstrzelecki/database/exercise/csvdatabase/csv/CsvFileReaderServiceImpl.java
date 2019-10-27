@@ -17,7 +17,7 @@ import pl.adamstrzelecki.database.exercise.csvdatabase.entity.User;
 @Service
 public class CsvFileReaderServiceImpl implements CsvFileReaderService {
 
-	DataToTheListAdder dataToTheListAdder;
+	private DataToTheListAdder dataToTheListAdder;
 	static final Logger logger = LoggerFactory.getLogger(CsvFileReaderServiceImpl.class);
 
 	@Autowired
