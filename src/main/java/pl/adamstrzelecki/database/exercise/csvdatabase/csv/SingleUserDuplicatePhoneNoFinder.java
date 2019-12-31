@@ -17,7 +17,7 @@ public class SingleUserDuplicatePhoneNoFinder {
 	public static boolean searchForDuplicates(List<User> databaseUsers, User user) {
 
 		// list containing phone numbers of the database users
-		List<String> databaseUserslistOfPhoneNo = new ArrayList<String>();
+		List<String> databaseUserslistOfPhoneNo = new ArrayList<>();
 
 		logger.trace("=====>>SingleUserDuplicatePhoneNoFinder: Filling list with database phone numbers");
 		for (User u : databaseUsers) {

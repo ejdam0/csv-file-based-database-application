@@ -20,9 +20,9 @@ public class DuplicatePhoneNoFinder {
 	public static void searchForDuplicatePhoneNumbers(List<User> uploadedUsers, List<User> databaseUsers) {
 
 		// list containing phone numbers of the uploaded users
-		List<String> uploadedUserslistOfPhoneNo = new ArrayList<String>();
+		List<String> uploadedUserslistOfPhoneNo = new ArrayList<>();
 		// list containing phone numbers of the database users
-		List<String> databaseUserslistOfPhoneNo = new ArrayList<String>();
+		List<String> databaseUserslistOfPhoneNo = new ArrayList<>();
 
 		// fill the lists
 		logger.trace("=====>>DuplicatePhoneNoFinder: Filling list with uploaded phone numbers");
@@ -42,7 +42,7 @@ public class DuplicatePhoneNoFinder {
 				"=====>>DuplicatePhoneNoFinder: Checking if there are any duplicates of phone numbers in database and uploaded data");
 
 		// list containing duplicate phone numbers
-		List<String> possibleDuplicates = new ArrayList<String>(databaseUserslistOfPhoneNo);
+		List<String> possibleDuplicates = new ArrayList<>(databaseUserslistOfPhoneNo);
 		possibleDuplicates.retainAll(uploadedUserslistOfPhoneNo);
 
 		if (possibleDuplicates.isEmpty()) {
@@ -61,7 +61,7 @@ public class DuplicatePhoneNoFinder {
 
 		// set containing phone numbers of users (no duplicate values)
 		logger.trace("=====>>DuplicatePhoneNoFinder: Creating a set out of the phone numbers list");
-		Set<String> setOfPhoneNumbers = new HashSet<String>(uploadedUserslistOfPhoneNo);
+		Set<String> setOfPhoneNumbers = new HashSet<>(uploadedUserslistOfPhoneNo);
 
 		// check if there are duplicates (set size will be smaller)
 		logger.trace("=====>>DuplicatePhoneNoFinder: Checking if there are any duplicates of phone numbers");

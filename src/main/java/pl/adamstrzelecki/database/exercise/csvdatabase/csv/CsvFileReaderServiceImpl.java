@@ -34,7 +34,7 @@ public class CsvFileReaderServiceImpl implements CsvFileReaderService {
 
 		// create a list of users to be filled by CSV file data
 		logger.trace("=====>>CsvFileReaderService: Creating empty list of users");
-		List<User> users = new ArrayList<User>();
+		List<User> users = new ArrayList<>();
 
 		try {
 			// initialize StringReader object

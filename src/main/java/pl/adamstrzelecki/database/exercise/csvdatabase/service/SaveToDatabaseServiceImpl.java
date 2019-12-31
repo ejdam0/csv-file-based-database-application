@@ -29,35 +29,28 @@ public class SaveToDatabaseServiceImpl implements SaveToDatabaseService {
 
 	@Override
 	public long saveListToDataBase(String data) {
-
 		logger.trace(
 				"=====>>SaveToDatabaseServiceImpl: Creating list of users via readCsvFile() from CsvFileReaderService");
 		// get users from the data
 		List<User> uploadedUsers = csvFileReaderService.readCsvFile(data);
-
 		if (uploadedUsers.isEmpty()) {
 			throw new NoUserMetConditionsException("The data contains invalid records!");
 		}
-
 		logger.trace("=====>>SaveToDatabaseServiceImpl: Getting users from the database");
 		// get users from the database
 		List<User> usersFromDatabase = getUsersFromDatabase();
-
 		logger.trace(
 				"=====>>SaveToDatabaseServiceImpl: Looking for duplicate phone numbers via searchForDuplicatePhoneNumbers() from DuplicatePhoneNoFinder");
 		// look for duplicates
 		DuplicatePhoneNoFinder.searchForDuplicatePhoneNumbers(uploadedUsers, usersFromDatabase);
-
 		logger.trace("=====>>SaveToDatabaseServiceImpl: Saving all users to the database");
 		// add users to the database
 		userRepo.saveAll(uploadedUsers);
-
 		return uploadedUsers.size();
 	}
 
 	// helper method to check for duplicates
 	private List<User> getUsersFromDatabase() {
-
 		return userRepo.findAll();
 	}
 }

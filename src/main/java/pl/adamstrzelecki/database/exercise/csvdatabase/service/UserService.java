@@ -9,19 +9,19 @@ import pl.adamstrzelecki.database.exercise.csvdatabase.entity.User;
 
 public interface UserService {
 
-	public Page<User> findAll(Pageable pageable);
+	Page<User> findAll(Pageable pageable);
 
-	public User findById(int theId);
+	User findById(int theId);
 
-	public void save(User user);
+	void save(User user);
 
-	public void deleteById(int theId);
+	void deleteById(int theId);
 
-	public void deleteAll();
+	void deleteAll();
 
-	public long count();
+	long count();
 
-	public User findEldest();
+	User findEldest();
 
-	public List<User> findAllByLastName(String lastName);
+	List<User> findAllByLastName(String lastName);
 }

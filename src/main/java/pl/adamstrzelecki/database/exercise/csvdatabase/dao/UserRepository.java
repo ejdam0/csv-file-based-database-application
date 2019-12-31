@@ -12,11 +12,11 @@ import pl.adamstrzelecki.database.exercise.csvdatabase.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	// add a method to sort by birth date
-	public Page<User> findAllByOrderByBirthDateAsc(Pageable pageable);
+	Page<User> findAllByOrderByBirthDateAsc(Pageable pageable);
 
 	// add a method to find users by their last_name;
-	public List<User> findAllByLastName(String lastName);
+	List<User> findAllByLastName(String lastName);
 
 	// find eldest user
-	public Optional<User> findFirstByOrderByBirthDateAsc();
+	Optional<User> findFirstByOrderByBirthDateAsc();
 }

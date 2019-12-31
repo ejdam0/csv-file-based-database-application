@@ -6,5 +6,5 @@ import pl.adamstrzelecki.database.exercise.csvdatabase.entity.User;
 
 public interface CsvFileReaderService {
 
-	public List<User> readCsvFile(String filename);
+	List<User> readCsvFile(String filename);
 }
