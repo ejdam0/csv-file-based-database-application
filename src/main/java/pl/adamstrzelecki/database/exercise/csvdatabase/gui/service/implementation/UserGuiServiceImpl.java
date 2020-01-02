@@ -1,4 +1,4 @@
-package pl.adamstrzelecki.database.exercise.csvdatabase.gui.service;
+package pl.adamstrzelecki.database.exercise.csvdatabase.gui.service.implementation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -9,7 +9,8 @@ import pl.adamstrzelecki.database.exercise.csvdatabase.csv.SingleUserDuplicatePh
 import pl.adamstrzelecki.database.exercise.csvdatabase.csv.validator.Validator;
 import pl.adamstrzelecki.database.exercise.csvdatabase.dao.UserRepository;
 import pl.adamstrzelecki.database.exercise.csvdatabase.entity.User;
-import pl.adamstrzelecki.database.exercise.csvdatabase.service.UserServiceImpl;
+import pl.adamstrzelecki.database.exercise.csvdatabase.gui.service.UserGuiService;
+import pl.adamstrzelecki.database.exercise.csvdatabase.service.implementation.UserServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,56 +22,58 @@ public class UserGuiServiceImpl implements UserGuiService {
 
     private UserRepository userRepository;
     private Validator userValidator;
+    private SingleUserDuplicatePhoneNoFinder singleUserDuplicatePhoneNoFinder;
 
     @Autowired
-    public UserGuiServiceImpl(UserRepository userRepository, Validator userValidator) {
+    public UserGuiServiceImpl(UserRepository userRepository, Validator userValidator, SingleUserDuplicatePhoneNoFinder singleUserDuplicatePhoneNoFinder) {
         this.userRepository = userRepository;
         this.userValidator = userValidator;
+        this.singleUserDuplicatePhoneNoFinder = singleUserDuplicatePhoneNoFinder;
     }
 
     @Override
     public List<User> findAll() {
-        logger.trace("=====>>UserServiceImpl: findAll()");
+        logger.trace("=====>>UserGuiServiceImpl: findAll()");
         return userRepository.findAll();
     }
 
     @Override
     public User findById(int theId) {
-        logger.trace("=====>>UserServiceImpl: Searching for user using id");
+        logger.trace("=====>>UserGuiServiceImpl: Searching for user using id");
         Optional<User> result = userRepository.findById(theId);
         return result.get();
     }
 
     @Override
     public boolean save(User user) {
-        logger.trace("=====>>UserServiceImpl: Verifying the provided User data");
+        logger.trace("=====>>UserGuiServiceImpl: Verifying the provided User data");
         if (!userValidator.checkIfDataFulfillsConditions(user)) {
-            logger.trace("=====>>UserServiceImpl: Provided data is incorrect");
+            logger.trace("=====>>UserGuiServiceImpl: Provided data is incorrect");
             return false;
         }
 
-        logger.trace("=====>>UserServiceImpl: Data is correct");
-        logger.trace("=====>>UserServiceImpl: Looking for duplicate phone numbers in the database");
+        logger.trace("=====>>UserGuiServiceImpl: Data is correct");
+        logger.trace("=====>>UserGuiServiceImpl: Looking for duplicate phone numbers in the database");
         List<User> users = userRepository.findAll();
-        if (SingleUserDuplicatePhoneNoFinder.searchForDuplicates(users, user)) {
-            logger.trace("=====>>UserServiceImpl: Number already exists in the database");
+        if (singleUserDuplicatePhoneNoFinder.searchForDuplicates(users, user)) {
+            logger.trace("=====>>UserGuiServiceImpl: Number already exists in the database");
             return false;
         }
 
-        logger.trace("=====>>UserServiceImpl: User data correct. Saving new user");
+        logger.trace("=====>>UserGuiServiceImpl: User data correct. Saving new user");
         userRepository.save(user);
         return true;
     }
 
     @Override
     public boolean deleteById(int theId) {
-        logger.trace("=====>>UserServiceImpl: Searching for user using id");
+        logger.trace("=====>>UserGuiServiceImpl: Searching for user using id");
         Optional<User> result = userRepository.findById(theId);
         if (result.isEmpty()) {
-            logger.error("=====>>UserServiceImpl: User not found");
+            logger.error("=====>>UserGuiServiceImpl: User not found");
             return false;
         } else {
-            logger.trace("=====>>UserServiceImpl: Deleting user using id");
+            logger.trace("=====>>UserGuiServiceImpl: Deleting user using id");
             userRepository.deleteById(theId);
         }
         return true;
@@ -78,19 +81,19 @@ public class UserGuiServiceImpl implements UserGuiService {
 
     @Override
     public void deleteAll() {
-        logger.trace("=====>>UserServiceImpl: Deleting all users");
+        logger.trace("=====>>UserGuiServiceImpl: Deleting all users");
         userRepository.deleteAll();
     }
 
     @Override
     public long count() {
-        logger.trace("=====>>UserServiceImpl: Counting users");
+        logger.trace("=====>>UserGuiServiceImpl: Counting users");
         return userRepository.count();
     }
 
     @Override
     public User findEldest() {
-        logger.trace("=====>>UserServiceImpl: Searching for the eldest user in the database");
+        logger.trace("=====>>UserGuiServiceImpl: Searching for the eldest user in the database");
         Optional<User> result = userRepository.findFirstByOrderByBirthDateAsc();
         return result.get();
     }
@@ -98,9 +101,9 @@ public class UserGuiServiceImpl implements UserGuiService {
     @Override
     public List<User> findAllByLastName(String lastName) {
         // capitalize first letter
-        logger.trace("=====>>UserServiceImpl: Searching for user using last name");
+        logger.trace("=====>>UserGuiServiceImpl: Searching for user using last name");
         List<User> result = userRepository.findAllByLastName(StringUtils.capitalize(lastName));
-        logger.info("=====>>UserServiceImpl: User created - found using last name");
+        logger.info("=====>>UserGuiServiceImpl: User created - found using last name");
         return result;
     }
 }

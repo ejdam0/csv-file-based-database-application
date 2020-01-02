@@ -1,4 +1,4 @@
-package pl.adamstrzelecki.database.exercise.csvdatabase.service;
+package pl.adamstrzelecki.database.exercise.csvdatabase.service.implementation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +14,7 @@ import pl.adamstrzelecki.database.exercise.csvdatabase.csv.SingleUserDuplicatePh
 import pl.adamstrzelecki.database.exercise.csvdatabase.csv.validator.Validator;
 import pl.adamstrzelecki.database.exercise.csvdatabase.dao.UserRepository;
 import pl.adamstrzelecki.database.exercise.csvdatabase.entity.User;
+import pl.adamstrzelecki.database.exercise.csvdatabase.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +26,14 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private Validator userValidator;
+    private SingleUserDuplicatePhoneNoFinder singleUserDuplicatePhoneNoFinder;
 
     // inject the userRepository
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, Validator userValidator) {
+    public UserServiceImpl(UserRepository userRepository, Validator userValidator, SingleUserDuplicatePhoneNoFinder singleUserDuplicatePhoneNoFinder) {
         this.userRepository = userRepository;
         this.userValidator = userValidator;
+        this.singleUserDuplicatePhoneNoFinder = singleUserDuplicatePhoneNoFinder;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService {
         logger.trace("=====>>UserServiceImpl: Looking for duplicate phone numbers in the database");
         List<User> databaseUsers = userRepository.findAll();
 
-        if (SingleUserDuplicatePhoneNoFinder.searchForDuplicates(databaseUsers, user)) {
+        if (singleUserDuplicatePhoneNoFinder.searchForDuplicates(databaseUsers, user)) {
             logger.trace("=====>>UserServiceImpl: Number already exists in the database");
             throw new DuplicatePhoneNoFoundException(
                     "User with the same phone number (" + user.getPhoneNo() + ") already exists in the database");

@@ -40,7 +40,7 @@ public class AddDataGui extends VerticalLayout {
         Button buttonReturn = new Button("Return", new Icon(VaadinIcon.ARROW_LEFT));
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.add(buttonConfirm, buttonReturn);
+        horizontalLayout.add(buttonReturn, buttonConfirm);
 
         buttonConfirm.addClickListener(clickEvent -> {
             if (textAreaUploadData.getValue().isEmpty()) {
@@ -48,7 +48,7 @@ public class AddDataGui extends VerticalLayout {
                 error.addThemeVariants(NotificationVariant.LUMO_ERROR);
                 error.open();
             }
-            if (!saveToDatabaseService.saveListToDataBase(textAreaUploadData.getValue())) {
+            if (!saveToDatabaseService.saveListToDatabase(textAreaUploadData.getValue())) {
                 Notification error = new Notification("Provided data is incorrect! Try again.", 3000, Notification.Position.MIDDLE);
                 error.addThemeVariants(NotificationVariant.LUMO_ERROR);
                 error.open();
@@ -65,6 +65,6 @@ public class AddDataGui extends VerticalLayout {
                 buttonReturn.getUI().ifPresent(ui -> ui.navigate("user-main-gui"))
         );
         setAlignItems(Alignment.CENTER);
-        add(textAreaUploadData, horizontalLayout);
+        add(labelUserDatabase, textAreaUploadData, horizontalLayout);
     }
 }

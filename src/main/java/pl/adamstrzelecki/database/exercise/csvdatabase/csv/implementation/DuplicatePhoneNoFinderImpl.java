@@ -1,8 +1,8 @@
-package pl.adamstrzelecki.database.exercise.csvdatabase.gui.service.csv;
+package pl.adamstrzelecki.database.exercise.csvdatabase.csv.implementation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.adamstrzelecki.database.exercise.csvdatabase.csv.DuplicatePhoneNoFinder;
 import pl.adamstrzelecki.database.exercise.csvdatabase.entity.User;
 
@@ -11,18 +11,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Component
-public class GuiDuplicatePhoneNoFinder {
+@Service
+public class DuplicatePhoneNoFinderImpl implements DuplicatePhoneNoFinder {
+    Logger logger = LoggerFactory.getLogger(DuplicatePhoneNoFinderImpl.class);
 
-    static final Logger logger = LoggerFactory.getLogger(DuplicatePhoneNoFinder.class);
-
-    public static boolean searchForDuplicatePhoneNumbers(List<User> uploadedUsers, List<User> databaseUsers) {
-        // list containing phone numbers of the uploaded users
+    @Override
+    public boolean searchForDuplicatePhoneNumbers(List<User> uploadedUsers, List<User> databaseUsers) {
         List<String> uploadedUsersListOfPhoneNo = new ArrayList<>();
-        // list containing phone numbers of the database users
         List<String> databaseUsersListOfPhoneNo = new ArrayList<>();
 
-        // fill the lists
         logger.trace("=====>>DuplicatePhoneNoFinder: Filling list with uploaded phone numbers");
         for (User u : uploadedUsers) {
             uploadedUsersListOfPhoneNo.add(u.getPhoneNo());
@@ -41,7 +38,6 @@ public class GuiDuplicatePhoneNoFinder {
 
         logger.trace("=====>>DuplicatePhoneNoFinder: Checking if there are any duplicates of phone numbers in database and uploaded data");
 
-        // list containing duplicate phone numbers
         List<String> possibleDuplicates = new ArrayList<>(databaseUsersListOfPhoneNo);
         possibleDuplicates.retainAll(uploadedUsersListOfPhoneNo);
 
@@ -55,8 +51,8 @@ public class GuiDuplicatePhoneNoFinder {
         }
     }
 
-    private static boolean hasDuplicate(List<String> uploadedUsersListOfPhoneNo) {
-
+    // helper method
+    private boolean hasDuplicate(List<String> uploadedUsersListOfPhoneNo) {
         logger.trace("=====>>DuplicatePhoneNoFinder: hasDuplicate(): Looking for duplicates in the uploaded data");
 
         // set containing phone numbers of users (no duplicate values)
@@ -74,6 +70,4 @@ public class GuiDuplicatePhoneNoFinder {
         logger.trace("=====>>DuplicatePhoneNoFinder: No duplicates found");
         return false;
     }
-
-
 }

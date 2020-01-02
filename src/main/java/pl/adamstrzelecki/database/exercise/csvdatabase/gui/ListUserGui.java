@@ -36,8 +36,7 @@ public class ListUserGui extends VerticalLayout {
 
         // define buttons
         Label labelListUser = new Label("List of all users");
-        Button buttonAddUser = new Button("Add new user");
-        Button buttonUpdateUser = new Button("Update existing user");
+        Button buttonAddUpdateUser = new Button("Add/update new user");
         Button buttonDeleteUser = new Button("Delete user using ID");
         Button buttonDeleteAll = new Button("Delete all");
         Button buttonFindEldestUser = new Button("Find eldest user in the database");
@@ -54,16 +53,17 @@ public class ListUserGui extends VerticalLayout {
         horizontalLayoutTwo.setAlignItems(Alignment.CENTER);
 
         // add buttons to the layouts
-        horizontalLayoutOne.add(buttonAddUser, buttonUpdateUser, buttonDeleteUser, buttonDeleteAll);
+        horizontalLayoutOne.add(buttonAddUpdateUser, buttonDeleteUser, buttonDeleteAll);
         horizontalLayoutTwo.add(buttonFindEldestUser, buttonCountUsers);
 
         buttonReturn.addClickListener(buttonClickEvent ->
                 buttonReturn.getUI().ifPresent(ui -> ui.navigate("user-main-gui"))
         );
 
-        // dialog to add new user
-
-        // dialog to update existing user
+        // add/update new user
+        buttonAddUpdateUser.addClickListener(buttonClickEvent ->
+                buttonReturn.getUI().ifPresent(ui -> ui.navigate("add-update-user-gui"))
+        );
 
         // dialog to delete user using ID
         Dialog dialogDeleteById = new Dialog();
@@ -173,8 +173,5 @@ public class ListUserGui extends VerticalLayout {
 
         verticalLayout.add(horizontalLayoutOne, horizontalLayoutTwo, grid);
         add(labelListUser, verticalLayout, buttonReturn);
-
-
-        // handle exceptions!!!
     }
 }
