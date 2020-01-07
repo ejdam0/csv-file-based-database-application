@@ -33,8 +33,8 @@ public class DataToTheListAdderImpl implements DataToTheListAdder {
         csvRecords.stream()
                 .filter(r -> csvRecordValidator.checkIfDataFulfillsConditions(r))
                 .forEach(r -> {
-                    User u = new User(r.get(FileHeaders.USER_FNAME),
-                            r.get(FileHeaders.USER_LNAME),
+                    User u = new User(StringUtils.capitalize(r.get(FileHeaders.USER_FNAME)),
+                            StringUtils.capitalize(r.get(FileHeaders.USER_LNAME)),
                             r.get(FileHeaders.USER_BDATE),
                             r.get(FileHeaders.USER_PHONENO));
                     users.add(u);
