@@ -1,9 +1,7 @@
 package pl.adamstrzelecki.database.exercise.csvdatabase.csv;
 
 import org.apache.commons.csv.CSVFormat;
-import org.springframework.stereotype.Component;
 
-@Component
 public class MyCSVFormat {
 
     private final String[] HEADERS = {"first_name", "last_name", "birth_date", "phone_no"};

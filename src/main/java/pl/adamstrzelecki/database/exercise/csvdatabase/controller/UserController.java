@@ -57,7 +57,7 @@ public class UserController {
 
     // expose "/list/{userId}" endpoint to get a user
     @GetMapping("/list/{userId}")
-    public User findById(@PathVariable("userId") int theId) throws Exception {
+    public User findById(@PathVariable("userId") int theId) {
         logger.trace("=====>>UserController: executing findById() | endpoint = /list/{userId}");
 		return userService.findById(theId);
     }
@@ -82,7 +82,7 @@ public class UserController {
 
     // expose "/list/{userId}" endpoint to delete a user
     @DeleteMapping("/list/{userId}")
-    public String delete(@PathVariable("userId") int theId) throws Exception {
+    public String delete(@PathVariable("userId") int theId) {
         logger.trace("=====>>UserController: executing delete() | endpoint = /list/{userId}");
         userService.deleteById(theId);
         return "Deleted user of id: " + theId;
