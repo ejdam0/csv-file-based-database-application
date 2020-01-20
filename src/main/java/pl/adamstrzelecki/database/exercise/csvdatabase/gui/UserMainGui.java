@@ -1,13 +1,15 @@
 package pl.adamstrzelecki.database.exercise.csvdatabase.gui;
 
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route("user-main-gui")
+@Route(value = "user-main-gui")
 @PageTitle("User database")
+@Tag("user-main-gui")
 public class UserMainGui extends VerticalLayout {
     public UserMainGui() {
         Label labelUserDatabase = new Label("User database");

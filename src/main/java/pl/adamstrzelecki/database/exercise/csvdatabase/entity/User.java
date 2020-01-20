@@ -1,9 +1,14 @@
 package pl.adamstrzelecki.database.exercise.csvdatabase.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@Data
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -23,60 +28,10 @@ public class User {
     @Column(name = "phone_no", nullable = true, unique = true)
     private String phoneNo;
 
-    public User() {
-
-    }
-
     public User(String firstName, String lastName, String birthDate, String phoneNo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.phoneNo = phoneNo;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    @Override
-    public String toString() {
-        return "User [id = " + id + ", firstName = " + firstName + ", lastName = " + lastName + "]";
-    }
-
 }
